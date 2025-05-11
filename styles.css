@@ -1,0 +1,378 @@
+/* Estilos generales y reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fffdf7;
+    color: #333;
+    line-height: 1.6;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+body.loaded {
+    opacity: 1;
+}
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+.container {
+    width: 100%;
+    max-width: 768px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Estilos de encabezado */
+header {
+    padding: 2rem 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #fff6e5, #fffdf7);
+    border-bottom: 2px dashed #ffcc33;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    color: #ff8c00;
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.subtitle {
+    font-style: italic;
+    margin-top: 0.5rem;
+    color: #666;
+}
+
+/* Estilo para los girasoles animados */
+.sunflower-icon {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    transition: transform 0.5s ease;
+}
+
+.sunflower-icon .center {
+    position: absolute;
+    width: 40%;
+    height: 40%;
+    background-color: #654321;
+    border-radius: 50%;
+    top: 30%;
+    left: 30%;
+    z-index: 2;
+}
+
+.sunflower-icon .petals {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ffcc33;
+    border-radius: 50% 50% 0 50%;
+    animation: rotate 10s linear infinite;
+}
+
+.sunflower-icon .petals:before,
+.sunflower-icon .petals:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ffcc33;
+    border-radius: 50% 50% 0 50%;
+}
+
+.sunflower-icon .petals:before {
+    transform: rotate(45deg);
+}
+
+.sunflower-icon .petals:after {
+    transform: rotate(90deg);
+}
+
+.sunflower-icon.bloom {
+    transform: scale(1.2);
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Mensaje principal */
+.message {
+    background-color: #fff9e6;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    text-align: center;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.8s ease;
+}
+
+.message.revealed {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.message p {
+    margin-bottom: 0.5rem;
+}
+
+.message p:last-child {
+    margin-bottom: 0;
+}
+
+/* Galería de imágenes */
+.gallery {
+    margin: 2rem 0;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.8s ease;
+}
+
+.gallery.revealed {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.gallery h2 {
+    text-align: center;
+    color: #ff8c00;
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.image-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-card:hover, .image-card:active {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.tap-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    padding: 8px;
+    text-align: center;
+    font-size: 0.8rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.image-card:hover .tap-indicator, .image-card:active .tap-indicator {
+    transform: translateY(0);
+}
+
+/* Modal para ver imágenes */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    width: 90%;
+    max-width: 500px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    position: relative;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal.show .modal-content {
+    transform: scale(1);
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+    z-index: 1;
+}
+
+#modalImage {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+#modalDescription {
+    text-align: center;
+    font-style: italic;
+    color: #555;
+}
+
+/* Poema */
+.poem {
+    background-color: #fff9e6;
+    padding: 2rem;
+    margin: 2rem 0;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.8s ease;
+}
+
+.poem.revealed {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.poem h2 {
+    color: #ff8c00;
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.poem p {
+    margin-bottom: 1rem;
+    line-height: 1.8;
+}
+
+/* Pie de página */
+footer {
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 2rem;
+    border-top: 2px dashed #ffcc33;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.8s ease;
+}
+
+footer.revealed {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.sunflower-small {
+    width: 25px;
+    height: 25px;
+    background-color: #ffcc33;
+    border-radius: 50%;
+    position: relative;
+}
+
+.sunflower-small:before {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    background-color: #654321;
+    border-radius: 50%;
+    top: 25%;
+    left: 25%;
+}
+
+/* Estilos responsivos adicionales */
+@media (max-width: 480px) {
+    .image-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .gallery h2, .poem h2 {
+        font-size: 1.8rem;
+    }
+    
+    .message, .poem {
+        padding: 1.2rem;
+    }
+}
+
+/* Animaciones adicionales */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.sunflower-icon {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Estilo para aparecer al desplazarse */
+.revealed {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+}
