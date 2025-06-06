@@ -88,4 +88,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Ejecutar al cargar y al cambiar el tamaño de la ventana
     window.addEventListener('resize', adjustImageCards);
     adjustImageCards();
+
+    // agregare esta linea para hacer un commit
 });
